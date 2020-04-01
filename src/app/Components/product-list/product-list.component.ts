@@ -21,6 +21,29 @@ currentCategoryId:number;
 
   }
   listProducts(){
+    const searchProduct:boolean=this.route.snapshot.paramMap.has('keyword');
+
+      if (searchProduct) {
+        this.handleSerchproduct();
+      } else {
+        this.handleListProduct();
+      }    
+   
+  }
+
+
+  handleSerchproduct(){
+      const keyword=this.route.snapshot.paramMap.get('keyword');
+      this.productService.searchProducts(keyword)
+      .subscribe(data=>{
+        console.log(data);
+        this.products=data;
+
+      });
+
+  }
+
+  handleListProduct(){
     const categoryId:boolean=this.route.snapshot.paramMap.has('id');
     
     if (categoryId) {
@@ -41,8 +64,6 @@ currentCategoryId:number;
 
     )
       }
-    
-   
   }
 
 }

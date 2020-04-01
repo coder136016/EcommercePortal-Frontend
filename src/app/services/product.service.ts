@@ -26,13 +26,20 @@ export class ProductService {
     );
   }
 
+
+  
   getProductCategories(): Observable<ProductCategory[]> {
 
     return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.productCategory)
     );
   }
-
+  searchProducts(keyWord:string): Observable<Product[]> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyWord}`;
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
+      map(response => response._embedded.products)
+    );
+  }
 }
 
 interface GetResponseProducts {
