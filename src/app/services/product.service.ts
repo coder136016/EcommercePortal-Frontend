@@ -26,7 +26,14 @@ export class ProductService {
     );
   }
 
+  getProductById(productId: number): Observable<Product> {
 
+    // need to build URL based on category id 
+    const searchUrl = `${this.baseUrl}/${productId}`;
+
+    return this.httpClient.get<Product>(searchUrl);
+    
+  }
   
   getProductCategories(): Observable<ProductCategory[]> {
 
@@ -53,3 +60,4 @@ interface GetResponseProductCategory {
     productCategory: ProductCategory[];
   }
 }
+
